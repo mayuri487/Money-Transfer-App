@@ -7,6 +7,7 @@ import '../Widgets/SingleRecepient.dart';
 import '../Widgets/add.dart';
 import '../Provider/wallet.dart';
 import '../Screens/authScreen.dart';
+import '../Provider/auth.dart';
 
 class HomeScreen extends StatelessWidget {
   // final  value;
@@ -14,26 +15,28 @@ class HomeScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final recepientData = Provider.of<RecepientList>(context);
-  final transaction = Provider.of<TransactionList>(context);
+    final transaction = Provider.of<TransactionList>(context);
 
     return Scaffold(
         drawer: Drawer(
             child: Column(
           children: [
             UserAccountsDrawerHeader(
-               // accountName: Text("mayu"),
-                accountEmail: Text(transaction.email),
-                currentAccountPicture: CircleAvatar(
-              child: Icon(Icons.account_circle),
-                ),
-                
-                ),
+              // accountName: Text("mayu"),
+              accountEmail: Text(transaction.email),
+              currentAccountPicture: CircleAvatar(
+                child: Icon(Icons.account_circle),
+              ),
+            ),
             ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Log out'),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Provider.of<Auth>(context, listen: false).logOut(context);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (BuildContext context) => AuthScreen()));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (BuildContext context) => AuthScreen()));
                 })
           ],
         )),
@@ -42,7 +45,6 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-           
               SizedBox(height: 60),
               Padding(
                 padding: const EdgeInsets.all(10.0),

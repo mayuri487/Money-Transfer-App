@@ -1,10 +1,12 @@
 ///import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:money_transfer_app/Screens/homeScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/auth.dart';
 import 'package:money_transfer_app/http_exception.dart';
+
 enum AuthMode { Signup, Login }
 
 class AuthScreen extends StatelessWidget {
@@ -124,7 +126,10 @@ class _AuthCardState extends State<AuthCard> {
           _authData['email'],
           _authData['password'],
         );
-         Navigator.of(context).pushNamed('/homeScreen');
+        Consumer<Auth>(builder: (ctx, auth, _) => 
+        auth.isAuth ? HomeScreen() : AuthScreen() 
+        );
+        //  Navigator.of(context).pushNamed('/homeScreen');
       } on HttpException catch (error) {
         var errorMessage = 'Authentication failed!';
         if (error.toString().contains('EMAIL_EXISTS')) {

@@ -115,14 +115,14 @@ class Auth with ChangeNotifier {
     
   }
 
-  // void logOut(){
-  //   _token = null;
-  //   _userId = null;
-  //   _expiryDate = null;
-  //   Navigator.of(context).push(
-  //     MaterialPageRoute(builder: (BuildContext context) => AuthScreen())
-  //     );
-  //   notifyListeners();
-  // }
+  void logOut(BuildContext context){
+    _token = null;
+    _userId = null;
+    _expiryDate = null;
+    // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(builder: (BuildContext context) => AuthScreen())
+    //   );
+    notifyListeners();
+  }
 
 }
